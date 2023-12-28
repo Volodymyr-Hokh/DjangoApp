@@ -1,0 +1,31 @@
+{% extends "records/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-center">
+                    <h3 class="card-title">Create Record</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group d-flex flex-column align-items-center justify-content-center">
+                            <label for="{{ form.record.id_for_label }}">Record:</label>
+                            {{ form.record }}
+                        </div>
+                        <div class="form-group d-flex flex-column align-items-center justify-content-center">
+                            <label for="{{ form.tags_text.id_for_label }}">Tags:</label>
+                            {{ form.tags }}
+                        </div>
+                        <div class="text-center my-3">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

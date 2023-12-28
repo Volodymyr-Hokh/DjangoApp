@@ -1,0 +1,36 @@
+{% extends "records/base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h3>Viewing tag: <a href="/tag/{{ tag }}">{{ tag }}</a></h3>
+        {% for record in records %}
+        <div class="record" itemscope="" itemtype="http://schema.org/CreativeWork">
+            <span class="text" itemprop="text">{{ record.record }}</span>
+            <span>by <small class="user" itemprop="user">{{ record.user }}</small>
+            </span>
+            <div class="tags">
+                Tags:
+                {% for tag in record.tags.all %}
+                <a class="tag" href="/tag/{{ tag }}">{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        <nav>
+            <ul class="pagination d-flex justify-content-between">
+                <li class="page-item">
+                    <a href="{% if records.has_previous %} {% url 'records:show_records_paginate' tag_name=tag page=records.previous_page_number %} {% endif %}"
+                        class="page-link {% if not records.has_previous %} hidden {% endif %}">
+                        <span aria-hidden="true">←</span> Previous
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a href="{% if records.has_next %} {% url 'records:show_records_paginate' tag_name=tag page=records.next_page_number %} {% endif %}"
+                        class="page-link {% if not records.has_next %} hidden {% endif %}">
+                        Next <span aria-hidden="true">→</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock content %}
